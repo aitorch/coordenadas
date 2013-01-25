@@ -1,0 +1,21 @@
+<%= form_for(@alianza) do |f| %>
+  <% if @alianza.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@alianza.errors.count, "error") %> prohibited this alianza from being saved:</h2>
+
+      <ul>
+      <% @alianza.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  	<%= f.label :nombre, "Nombre"%>
+	<%= f.text_field :nombre%>
+	</br>
+	<%= f.lable :state, "estado"%>
+	<%= f.select :state, options_for_select({"Amiga"=>1,"Hostil"=>2,"Otro"=>3,"Propia"=>4})%>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+<h1>Lista de citiudades</h1>
+
+	<table class="table table-striped table-condensed">
+	  <tr>
+		<th>X</th>
+	    <th>Y</th>
+		<th>Ver en mapa</th>
+	</tr>
+	<% @cities.each do |city| %>
+	<tr>
+		<td><%=city.x%></td>
+		<td><%=city.y%></td>
+		<td><%= link_to "ver en mapa", "/map/"+(city.x-50).to_s+"/"+(city.y-50).to_s+"/100#"+city.x.to_s + "-" + city.y.to_s%></td>
+	</tr>
+	<% end %>
+<br />

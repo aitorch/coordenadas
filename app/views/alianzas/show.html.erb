@@ -1,0 +1,31 @@
+<h1>Lista de usuarios Alianza <%=@alianza.nombre%></h1>
+<h2>Alianza <%=@alianza.state_string%></h2>
+<table class="table table-striped table-condensed">
+  <tr>
+    <th>Nombre</th>
+    <th>Zona Horaria</th>
+    <th># de ciudades</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @alianza.users.each do |user| %>
+  <tr>
+	<td><%=user.name%></td>
+	<td><%=user.timezone%></td>
+    <td><%=user.cities.count%></td>
+    <td><%= link_to 'Mostrar', user , :class => 'btn btn-mini'%></td>
+    <td><%= link_to 'Editar', edit_user_path(user) ,:class => 'btn btn-mini'%></td>
+    <td><%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Estas seguro?' } , :class => 'btn btn-mini btn-danger'%></td>
+  	
+</tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Usuario', new_user_path , :class => 'btn btn-primary'%>
+
+
+<%= link_to 'Edit', edit_alianza_path(@alianza), :class => 'btn btn-primary' %> |

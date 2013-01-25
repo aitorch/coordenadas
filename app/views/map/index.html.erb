@@ -1,0 +1,39 @@
+<h4>Mapa desde <%=@xcord.to_s+","+@ycord.to_s%> mostrando <%=@size%></h4>
+<%=link_to "<<", "/"+"map"+"/"+(@xcord-@size>0?@xcord-@size:0).to_s+"/"+(@ycord).to_s+"/"+@size.to_s %>
+<%=link_to ">>", "/"+"map"+"/"+(@xcord+@size<800?@xcord+@size:800).to_s+"/"+(@ycord).to_s+"/"+@size.to_s %>
+<%=link_to raw("&#9660;"), "/"+"map"+"/"+(@xcord).to_s+"/"+(@ycord+@size<800?@ycord+@size:800).to_s+"/"+@size.to_s %>
+<%=link_to raw("&#x25b2;"), "/"+"map"+"/"+(@xcord).to_s+"/"+(@ycord-@size>0?@ycord-@size:0).to_s+"/"+@size.to_s %>
+<table id="map">
+	<%@xcord.upto(@xcord+@size) do |x|%>
+	<tr>
+		<%cities=City.where("x=?",x) %>
+	<%if !cities.empty? %>
+		<%@ycord.upto(@ycord+@size) do |y|%>
+			<% if city=cities.all.find{|p| p.x == x and p.y==y} %>
+			<td class="<%=city.user.alianza.state_string.downcase%>">
+			<%=link_to x.to_s + "," + y.to_s , user_path(city.user), :id => x.to_s + "-" + y.to_s%>
+			</td>
+			<% else %>
+			<td></td>
+			<% end %>
+			<% if y == @ycord+@size %>
+			</tr>
+			<% end %>
+		<% end %>
+			  
+	<%else%>
+			<%@ycord.upto(@ycord+@size) do |y|%>
+			<td></td>
+			
+			<% if y == @ycord+@size %>
+			</tr>
+			<% end %>
+			<% end %>
+	<% end %>
+
+	<%end%>
+</table>
+<%=link_to "<<", "/"+"map"+"/"+(@xcord-@size>0?@xcord-@size:0).to_s+"/"+(@ycord).to_s+"/"+@size.to_s %>
+<%=link_to ">>", "/"+"map"+"/"+(@xcord+@size<800?@xcord+@size:800).to_s+"/"+(@ycord).to_s+"/"+@size.to_s %>
+<%=link_to raw("&#9660;"), "/"+"map"+"/"+(@xcord).to_s+"/"+(@ycord+@size<800?@ycord+@size:800).to_s+"/"+@size.to_s %>
+<%=link_to raw("&#x25b2;"), "/"+"map"+"/"+(@xcord).to_s+"/"+(@ycord-@size>0?@ycord-@size:0).to_s+"/"+@size.to_s %>

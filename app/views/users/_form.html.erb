@@ -1,0 +1,38 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  	<% end %>
+  	<%= f.label :name,  'Nombre'%>
+	<%= f.text_field :name%>
+	<%= f.label :alianza,  'Alianza'%>
+	<%= f.select :alianza_id, Alianza.all.collect {|a| [ a.nombre, a.id ] }, {:include_blank => 'Ninguna'}%>
+	<%= f.label :timezone,  'Zona horaria'%>
+	<%= f.text_field :timezone%>
+	
+	<%= f.fields_for :cities do |builder| %>
+ <!-- 	 <%=render "city_fields", :f =>builder %>-->
+<%=builder.label :x%>
+<%=builder.text_field :x%>
+<%=builder.label :y%>
+<%=builder.text_field :y%>
+<%=builder.check_box :_destroy %>
+<%=f.label :_destroy, "Eliminar ciudad" %>
+	
+	<% end %>
+	
+	
+	
+	<p><%= link_to_add_fields "Añadir Ciudad", f, :cities %></p>
+	
+  	<div class="actions">
+    	<%= f.submit %>
+  	</div>
+<% end %>
